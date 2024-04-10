@@ -8,7 +8,8 @@
 
 ## OAuth 2.0 Flow Walkthrough
 
-### Step 1: The user clicks the OAuth Login button that we have supplied in the client side code. For security reasons we do not want to generate the OAuth flow initializing URL on our frontend as this would expose sensitive credentials.<br>
+### Step 1:
+The user clicks the OAuth Login button that we have supplied in the client side code. For security reasons we do not want to generate the OAuth flow initializing URL on our frontend as this would expose sensitive credentials.<br>
 <br>
 
 ### Step 2:
@@ -55,5 +56,7 @@ And the request should look something like:<br>
 ### Step 6:
 Upon a successful reply by Google, we should now have 2 very important pieces of data. 1) An Access Token, which we can use as our Session Token if we choose or even use it to access Google's API on behalf of our Logged in user. Other options include discarding it as the user has been authenticated and now we can use our own Session Management to handle the Login. 2) We should also have received an ID Token in the form of a JWT. I always recommend verifying the signature. Above that, you can see if the Claims object has returned the same 'nonce' value that you sent earlier. If it does not match, you should abort this Login!<br>
 <br>
-Step 7: Finally, once you have managed the Login/Signup logic for the user, it is time to redirect their browser one last time to return them to your application as a Logged in user!<br>
+
+### Step 7:
+**Finally, once you have managed the Login/Signup logic for the user, it is time to redirect their browser one last time to return them to your application as a Logged in user!**<br>
 <br>
