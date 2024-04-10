@@ -25,4 +25,18 @@ Step 3: With our random values in tow, we must now construct our URL for Google.
 With these values, we can construct an appropriate URL to begin the OAuth flow. Our Redirect URL will look something like the following:
 <img width="851" alt="oauth_first_url" src="https://github.com/bkieselEducational/OAuth-2.0-from-Scratch/assets/131717897/40f5e57c-9e9b-4319-838d-8ff6453a9726"><br>
 <br>
-Step 4:
+Step 4: Using the URL generated above, we now redirect the client's browser to the Google 'Select Account' Login Screen.<br>
+<br>
+Step 5: Upon successful Login by our user, Google now returns a very short-lived code to our Redirect URI which we have registered with Google. It should also include our state parameter value that we sent earlier. We will match this value to what we saved in order to confirm that the response is coming from Google. Then we will respond to this request by immediately sending a JSON encoded POST request to another Google OAuth endpoint. The https://oauth2.googleapis.com/token endpoint!! That request should contain the following parameters:<br>
+
+- client_id: your_google_oauth_client_id (REQUIRED and Same as Above)
+- client_secret: Our Google client secret given to us during the registration on GCP.
+- redirect_uri: Because all OAuth flow related requests have this! (REQUIRED)
+- code_verifier: The value that we sent the hash of in the original request. Now Google can use this to validate that code_challenge that we sent! (OPTIONAL but recommended!)
+- grant_type: authorization (REQUIRED)
+- code: The ephemaral code that Google just sent us! (REQUIRED)<br>
+<br>
+And the request should look something like:<br>
+<br>
+<img width="829" alt="oauth_code_exchange" src="https://github.com/bkieselEducational/OAuth-2.0-from-Scratch/assets/131717897/a3f7a031-74fa-4c49-a7c5-fde395e63335"><br>
+<br>
