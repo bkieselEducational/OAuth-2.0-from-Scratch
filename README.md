@@ -27,7 +27,7 @@ With these values, we can construct an appropriate URL to begin the OAuth flow. 
 <br>
 Step 4: Using the URL generated above, we now redirect the client's browser to the Google 'Select Account' Login Screen.<br>
 <br>
-Step 5: Upon successful Login by our user, Google now returns a very short-lived code to our Redirect URI which we have registered with Google. It should also include our state parameter value that we sent earlier. We will match this value to what we saved in order to confirm that the response is coming from Google. Then we will respond to this request by immediately sending a JSON encoded POST request to another Google OAuth endpoint. The 'https://oauth2.googleapis.com/token' endpoint!! That request should contain the following parameters:<br>
+Step 5: Upon successful Login by our user, Google now returns a very short-lived code to our Redirect URI which we have registered with Google. It should also include our state parameter value that we sent earlier. We will match this value to what we saved in order to confirm that the response is coming from Google. Then we will respond to this request by immediately sending a JSON encoded POST request to another Google OAuth endpoint. The 'https: //oauth2.googleapis.com/token' endpoint!! That request should contain the following parameters:<br>
 
 - client_id: your_google_oauth_client_id (REQUIRED and Same as Above)
 - client_secret: Our Google client secret given to us during the registration on GCP.
