@@ -13,7 +13,7 @@ Step 2: The backend endpoint will pull our Google OAuth client credentials from 
 - code_verfier: A random alphanumeric string of varying length. The constraints by the OAuth community specify 43-128 characters in length. We save this value to be used later.
 - code_challenge: The result of taking the code_verifier string and SHA256 hashing it. Then taking that hash and base64URL encoding it. We will send this in the initial request.<br>
 <br>
-Step 3: With our random values in tow, we must now construct our URL for Google. It will need to contain some additional parameters. Some are required some are optional:
+Step 3: With our random values in tow, we must now construct our URL for Google. It will need to contain some additional parameters. Some are required some are optional:<br>
 - access_type: offline (OPTIONAL: Setting this parameter to 'offline' tells Google to send a Refresh Token)
 - scope: https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile openid email(REQUIRED: AT least one is required. Here we have 3. We want profile info email address and an openid token)
 - prompt: select_account consent (OPTIONAL: Note that if we do not set the 'select_account' value here, there is no garauntee that a user that is logged into 1 Google account will be prompted to choose another when logging in. This is a bad user experience and from my viewpoint, setting the 'prompt' property should not be optional. But it is!)
