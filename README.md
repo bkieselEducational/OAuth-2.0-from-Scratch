@@ -13,7 +13,7 @@
 <br>
 
 ### Step 2:
-**The backend endpoint will pull our Google OAuth client credentials from our .env file and will use these values to initialize a Client class to be used for our flow. Now we must generate a number of random values to use for authorization during the flow. While all of these values are technically optional, it is the recommendation by the OAuth community to use them everytime! These values are as follows:**
+**The backend endpoint will pull our Google OAuth client credentials from our .env file and will use these values to initialize a Client class to be used for our flow. Now we must generate a number of random values to use for authorization during the flow. While all of these values are technically optional, it is the recommendation by the OAuth community to use them everytime! The use of the code_verifier and code_challenge falls under the security concept defined by the OAuth consortium as PKCE: Proof Key for Code Exchange. Originally developed for use with Mobile Apps, it is now recommended in all flows to protect against Authorization Code Injection Attacks. These values are as follows:**
 - state: A random string value that will act as our CSRF protection for the flow.
 - nonce: This value can be considered CSRF protection for our OpenID Token that we will request. It is sent back in the JWT claims object for verification.
 - code_verfier: A random alphanumeric string of varying length. The constraints by the OAuth community specify 43-128 characters in length. We save this value to be used later.
