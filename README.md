@@ -15,7 +15,7 @@
 ### Step 2:
 **The backend endpoint will pull our Google OAuth client credentials from our .env file and will use these values to initialize a Client class to be used for our flow. Now we must generate a number of random values to use for authorization during the flow. While all of these values are technically optional, it is the recommendation by the OAuth community to use them everytime! These values are as follows:**
 - state: A random string value that will act as our CSRF protection for the flow.
-- nonce: This value can be considered CSRF protection for our OpenID Token that we will request. it is sent back in the JWT claims object for verification.
+- nonce: This value can be considered CSRF protection for our OpenID Token that we will request. It is sent back in the JWT claims object for verification.
 - code_verfier: A random alphanumeric string of varying length. The constraints by the OAuth community specify 43-128 characters in length. We save this value to be used later.
 - code_challenge: The result of taking the code_verifier string and SHA256 hashing it. Then taking that hash and base64URL encoding it. We will send this in the initial request.<br>
 <br>
