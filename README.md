@@ -63,4 +63,5 @@ And the request should look something like:<br>
 
 ## Additional Resources
 1. [OAuth 2.0 Official](https://oauth.net/2/)
-2. [Google Oauth 2.0 API Reference](https://github.com/bkieselEducational/OAuth-2.0-API---Google-Reference)
+2. [OAuth 2.0 Parameters](https://github.com/bkieselEducational/OAuth-2.0-Parameters)
+3. [Google Oauth 2.0 API Reference](https://github.com/bkieselEducational/OAuth-2.0-API---Google-Reference)
