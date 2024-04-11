@@ -60,3 +60,7 @@ And the request should look something like:<br>
 ### Step 7:
 **Finally, once you have managed the Login/Signup logic for the user, it is time to redirect their browser one last time to return them to your application as a Logged in user!**<br>
 <br>
+
+## Additional Resources
+1. [OAuth 2.0 Official](https://oauth.net/2/)
+2. [Google Oauth 2.0 API Reference](https://github.com/bkieselEducational/OAuth-2.0-API---Google-Reference)
