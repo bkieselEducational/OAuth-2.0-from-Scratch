@@ -118,12 +118,26 @@ class Flow(object):
 ```
 
 ### code_verifier
-In the code above we can see how this value is being generated.
+In the code above we can see how this value is being generated. Note that the length constraint is typically recommended to be 43-128 characters.
 
 1. First of all, we have defined an alphabet for the construction of the random string as:<br>
 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._~"
+2. Secondly, we instantiate an instance of SystemRandom() which we will use to select a characteer at random from the alphabet.
+3. Using a list comprehension, we then generate a list of random characters, defaulting to the maximum length of 128 characters.
+4. Finally, we join the list into a string of the random characters.
+
+An example code_verifier: rstpcP5VkyNmRkPHlIhqz2-p2JghkQgwCRrXniQl-udv.MybF2Pmr2HRkoXfT7W0aywQracDnxHY~2_lCuDsljZWoCF9~Wur6uIyXkxENxafTturzNSUfbXH9K~FNFC8
 
 ### code_challenge
+Now it is time to hash our random string.
+
+1. First we instantiate a new hash object.
+2. Next we update the hash object with the content of our code_verifier. As is typical of hash functions, we want the data to be input as raw bytes (python defaults to UTF-8), so to this end we are passing the code_verifier as str.encode(self.code_verifier)
+3. Next we call the digest() method to run the hash function and return a list of raw bytes of no particular codec. Note that the sha256 algorithm will always return a list of 32-bytes or 256 bits!
+4. Now we encode these random bytes as base64URLsafe() bytes. As base64 translates 8-bit bytes into 6-bit bytes, it will result in a longer string than we would have if wew used UTF-8 or some otheer codec. In our case, we will get 43 bytes of output. (If applicable, that output will be shortened from the end if there are any padding characters, when we call the code on the following line.)
+5. Time to decode the bytes into a glyph (string) representation and strip off the trailing padding characters '=' (there will be no nore than 2 of these) as Google forbids them and they are not required to compute the hash on the server side.
+
+An example of a code_challenge: xftkieDXjg_paZetCSFmsgRf1McELR5Ney-EaMTvrJ8
 
 ## Additional Resources
 1. [OAuth 2.0 Official](https://oauth.net/2/)
