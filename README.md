@@ -61,6 +61,70 @@ And the request should look something like:<br>
 **Finally, once you have managed the Login/Signup logic for the user, it is time to redirect their browser one last time to return them to your application as a Logged in user!**<br>
 <br>
 
+## The Cryptography of OAuth 2.0
+So regardless of any details above or in other parts of this repo, how the PKCE portion of our flow is actually implemented may continue to be a mystery. By what means is our package generating these values for us? If we needed to generate them ourselves, how would we do that? Let's explore these topics below.
+
+```python
+  # From flow.py in the google_auth_oauthlib library
+
+class Flow(object):
+    ...
+    ...
+    
+    def authorization_url(self, **kwargs):
+        """Generates an authorization URL.
+
+        This is the first step in the OAuth 2.0 Authorization Flow. The user's
+        browser should be redirected to the returned URL.
+
+        This method calls
+        :meth:`requests_oauthlib.OAuth2Session.authorization_url`
+        and specifies the client configuration's authorization URI (usually
+        Google's authorization server) and specifies that "offline" access is
+        desired. This is required in order to obtain a refresh token.
+
+        Args:
+            kwargs: Additional arguments passed through to
+                :meth:`requests_oauthlib.OAuth2Session.authorization_url`
+
+        Returns:
+            Tuple[str, str]: The generated authorization URL and state. The
+                user must visit the URL to complete the flow. The state is used
+                when completing the flow to verify that the request originated
+                from your application. If your application is using a different
+                :class:`Flow` instance to obtain the token, you will need to
+                specify the ``state`` when constructing the :class:`Flow`.
+        """
+        kwargs.setdefault("access_type", "offline")
+        if self.autogenerate_code_verifier:
+            chars = ascii_letters + digits + "-._~"
+            rnd = SystemRandom()
+            random_verifier = [rnd.choice(chars) for _ in range(0, 128)]
+            self.code_verifier = "".join(random_verifier)
+
+        if self.code_verifier:
+            code_hash = hashlib.sha256()
+            code_hash.update(str.encode(self.code_verifier))
+            unencoded_challenge = code_hash.digest()
+            b64_challenge = urlsafe_b64encode(unencoded_challenge)
+            code_challenge = b64_challenge.decode().split("=")[0]
+            kwargs.setdefault("code_challenge", code_challenge)
+            kwargs.setdefault("code_challenge_method", "S256")
+        url, state = self.oauth2session.authorization_url(
+            self.client_config["auth_uri"], **kwargs
+        )
+
+        return url, state
+```
+
+### code_verifier
+In the code above we can see how this value is being generated.
+
+1. First of all, we have defined an alphabet for the construction of the random string as:<br>
+"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._~"
+
+### code_challenge
+
 ## Additional Resources
 1. [OAuth 2.0 Official](https://oauth.net/2/)
 2. [OAuth 2.0 Parameters](https://github.com/bkieselEducational/OAuth-2.0-Parameters)
