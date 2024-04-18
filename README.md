@@ -65,7 +65,7 @@ And the request should look something like:<br>
 So regardless of any details above or in other parts of this repo, how the PKCE portion of our flow is actually implemented may continue to be a mystery. By what means is our package generating these values for us? If we needed to generate them ourselves, how would we do that? Let's explore these topics below.
 
 ```python
-  # From flow.py in the google_auth_oauthlib library
+# From flow.py in the google_auth_oauthlib library
 
 class Flow(object):
     ...
@@ -126,7 +126,9 @@ In the code above we can see how this value is being generated. Note that the le
 3. Using a list comprehension, we then generate a list of random characters, defaulting to the maximum length of 128 characters.
 4. Finally, we join the list into a string of the random characters.
 
-An example code_verifier: rstpcP5VkyNmRkPHlIhqz2-p2JghkQgwCRrXniQl-udv.MybF2Pmr2HRkoXfT7W0aywQracDnxHY~2_lCuDsljZWoCF9~Wur6uIyXkxENxafTturzNSUfbXH9K~FNFC8
+```python
+# An example code_verifier: rstpcP5VkyNmRkPHlIhqz2-p2JghkQgwCRrXniQl-udv.MybF2Pmr2HRkoXfT7W0aywQracDnxHY~2_lCuDsljZWoCF9~Wur6uIyXkxENxafTturzNSUfbXH9K~FNFC8
+```
 
 ### code_challenge
 Now it is time to hash our random string.
