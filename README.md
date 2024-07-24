@@ -9,7 +9,7 @@
 ## OAuth 2.0 Flow Walkthrough
 
 ### Step 1:
-**The user clicks the OAuth Login button that we have supplied in the client side code. For security reasons we do not want to generate the OAuth flow initializing URL on our frontend as this would expose sensitive credentials.**<br>
+**The user clicks the OAuth Login button that we have supplied in the client side code. This will send the intial GET to our backend to initialize the flow.**<br>
 <br>
 
 ### Step 2:
